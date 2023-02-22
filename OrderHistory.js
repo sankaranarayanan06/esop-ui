@@ -41,7 +41,60 @@ function getOrderHistory() {
             c4.innerText = response[transaction].price;
             c5.innerText = response[transaction].esopType;
 
-        
+            if (response[transaction].filled) {
+              var filledLogLength = response[transaction].filled.length;
+              const tbl = document.createElement("table");
+              const tblBody = document.createElement("tbody");
+              const innerTableRow = document.createElement("tr");
+
+              const cell1 = document.createElement("th");
+              const cell2 = document.createElement("th");
+              const cell3 = document.createElement("th");
+
+              const cellText1 = document.createTextNode("Buyer Order Id");
+              const cellText2 = document.createTextNode("Placed Quantity");
+              const cellText3 = document.createTextNode("Price");
+
+              cell1.appendChild(cellText1);
+              cell2.appendChild(cellText2);
+              cell3.appendChild(cellText3);
+
+              innerTableRow.append(cell1);
+              innerTableRow.append(cell2);
+              innerTableRow.append(cell3);
+
+              row.appendChild(innerTableRow);
+
+              for (
+                var filledLogRow = 0;
+                filledLogRow < filledLogLength;
+                filledLogRow++
+              ) {
+                const innerTableRow = document.createElement("tr");
+                const cell1 = document.createElement("td");
+                const cell2 = document.createElement("td");
+                const cell3 = document.createElement("td");
+
+                const cellText1 = document.createTextNode(
+                  response[transaction].filled[filledLogRow].orderId
+                );
+                const cellText2 = document.createTextNode(
+                  response[transaction].filled[filledLogRow].quantity
+                );
+                const cellText3 = document.createTextNode(
+                  response[transaction].filled[filledLogRow].price
+                );
+
+                cell1.appendChild(cellText1);
+                cell2.appendChild(cellText2);
+                cell3.appendChild(cellText3);
+
+                innerTableRow.append(cell1);
+                innerTableRow.append(cell2);
+                innerTableRow.append(cell3);
+                row.appendChild(innerTableRow);
+              }
+            }
           }
         }
       }
